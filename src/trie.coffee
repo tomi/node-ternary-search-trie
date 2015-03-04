@@ -167,44 +167,34 @@ class TernarySearchTrie
   del: (key) ->
     return @ if !key?
     codepoints = toCodePoints key
-    @delete_ @root_, codepoints, 0
+    node = @find_ @root_, codepoints
+    @delete_ node
     return @
 
-  delete_: (root, codepoints, index) ->
-    while root? and index < codepoints.length
-      c = codepoints[index]
-      branch = switch
-        when c < root.c then 'l'
-        when c > root.c then 'r'
-        else 'm'
-      isEqual = branch == 'm'
-      if isEqual and index + 1 == codepoints.length
-        if root.v?
-          root.v = null
-          @size_ -= 1
-        node = root
-        until node.m? or node.v?
-          return if node.l? and node.r?
-          parent = node.p
-          if node.l? or node.r?
-            child = node.r or node.l
-            if parent?
-              replace parent, node, child
-              node = if child.m? or child.v? then parent else child
-            else
-              @root_ = child
-              @root_.p = null
-              node = @root_
-          else
-            if parent?
-              erase parent, node
-              node = parent
-            else
-              @root_ = null
-              return
-        return
-      index += 1 if isEqual
-      root = root[branch]
+  delete_: (node) ->
+    return if !node?
+    if node.v?
+      node.v = null
+      @size_ -= 1
+    until node.m? or node.v?
+      return if node.l? and node.r?
+      parent = node.p
+      if node.l? or node.r?
+        child = node.r or node.l
+        if parent?
+          replace parent, node, child
+          node = if child.m? or child.v? then parent else child
+        else
+          @root_ = child
+          @root_.p = null
+          node = @root_
+      else
+        if parent?
+          erase parent, node
+          node = parent
+        else
+          @root_ = null
+          return
     return
 
   # TODO: http://www.bcs.org/upload/pdf/oommen.pdf
