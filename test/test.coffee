@@ -38,12 +38,6 @@ describe 'set(key, value)', ->
     return
   return
 
-#describe 'test', ->
-#  it '#1', ->
-#    console.log trie.keysWithinDamerauLevenshteinDistance '天文數字', 2
-#    return
-#  return
-
 describe 'get(key)', ->
   it 'should get the proper value for each key #1', ->
     for i in randomIndice
