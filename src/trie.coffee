@@ -107,7 +107,7 @@ class TernarySearchTrie
     @root_ = null
     @size_ = 0
 
-  set: (key, value, debug) ->
+  set: (key, value) ->
     return @ if !(key? and value?)
     codepoints = toCodePoints key
     @root_ ?= mkTrie codepoints[0]
