@@ -5,7 +5,7 @@
   "author": "Jak Wings <jakwings@gmail.com>",
   "main": "lib/trie.js",
   "scripts": {
-    "test": "node_modules/gulp/bin/gulp.js test",
+    "test": "node_modules/gulp/bin/gulp.js build test",
     "prepublish": "node_modules/gulp/bin/gulp.js build"
   },
   "licenses": [
