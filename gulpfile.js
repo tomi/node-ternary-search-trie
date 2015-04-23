@@ -31,7 +31,7 @@ gulp.task('coffee', function () {
              .pipe(gulp.dest('lib'));
 });
 
-gulp.task('test', function (cb) {
+gulp.task('test', ['build'], function (cb) {
   return gulp.src('test/test.coffee')
              .pipe(gpCoffee({bare: true}))
              .pipe(gpRename({extname: '.js'}))
