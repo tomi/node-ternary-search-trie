@@ -103,16 +103,16 @@ replace = (parent, oldNode, newNode) ->
 
 class TernarySearchTrie
 
-  constructor: () ->
+  constructor: ->
     @root_ = null
     @size_ = 0
 
   set: (key, value) ->
-    return @ if !(key? and value?)
+    return this if !(key? and value?)
     codepoints = toCodePoints key
     @root_ ?= mkTrie codepoints[0]
     @insert_ @root_, codepoints, value
-    return @
+    return this
 
   insert_: (root, codepoints, value) ->
     index = 0
@@ -165,11 +165,11 @@ class TernarySearchTrie
     return null
 
   del: (key) ->
-    return @ if !key?
+    return this if !key?
     codepoints = toCodePoints key
     node = @find_ @root_, codepoints
     @delete_ node
-    return @
+    return this
 
   delete_: (node) ->
     return if !node?
@@ -268,9 +268,9 @@ class TernarySearchTrie
       throw new Error('unknown errors')
     return
 
-  size: () -> @size_
+  size: -> @size_
 
-  keys: () ->
+  keys: ->
     items = []
     @traverse_ @root_, (key) -> items.push key
     return items
@@ -287,7 +287,7 @@ class TernarySearchTrie
     return if !root?
     callback prefix, root if root.v?
     @traverse_ root.m, (key, node) -> callback prefix + key, node.v
-    return @
+    return this
 
   keysWithCommonPrefix: (key) ->
     items = []
@@ -300,7 +300,7 @@ class TernarySearchTrie
     @walk_ @root_, toCodePoints(key), (node) ->
       prefix += fromCodePoint node.c
       callback prefix, node.v if node.v?
-    return @
+    return this
 
   keysWithinHammingDistance: (query, distance) ->
     items = []
@@ -324,7 +324,7 @@ class TernarySearchTrie
       return if a.length != b.length
       callback key, node.v if calcHammingDistance(a, b) <= distance
       return
-    return @
+    return this
 
   searchWithinLevenshteinDistance: (query, distance, callback) ->
     a = toCodePoints query
@@ -333,7 +333,7 @@ class TernarySearchTrie
       return if Math.abs(a.length - b.length) > distance
       callback key, node.v if calcLevenshteinDistance(a, b) <= distance
       return
-    return @
+    return this
 
   searchWithinDamerauLevenshteinDistance: (query, distance, callback) ->
     a = toCodePoints query
@@ -342,14 +342,14 @@ class TernarySearchTrie
       return if Math.abs(a.length - b.length) > distance
       callback key, node.v if calcDamerauLevenshteinDistance(a, b) <= distance
       return
-    return @
+    return this
 
   traverse: (callback) -> @traverse_ @root_, callback
 
   traverse_: (root = @root_, callback) ->
     t = @traversal_ root
     callback r.value.key, r.value.value while !(r = t.next()).done
-    return @
+    return this
 
   traversal: -> @traversal_ @root_
 
