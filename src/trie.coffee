@@ -6,6 +6,15 @@ toCodePoints = (str) ->
   result = []
   counter = 0
   length = str.length
+  if str.codepointat?
+    while counter < length
+      codepoint = str.codepointat counter
+      if codepoint?
+        result.push codepoint
+        counter += if codepoint > 0xffff then 2 else 1
+      else
+        return result
+    return result
   while counter < length
     value = str.charCodeAt counter++
     if counter < length and 0xD800 <= value <= 0xDBFF
@@ -20,7 +29,7 @@ toCodePoints = (str) ->
   return result
 
 # punnycode.ucs2.encode from https://github.com/bestiejs/punycode.js
-fromCodePoint = (codepoints...) ->
+fromCodePoint = String.fromCodePoint or (codepoints...) ->
   fromCharCode = String.fromCharCode
   str = ''
   for value in codepoints
