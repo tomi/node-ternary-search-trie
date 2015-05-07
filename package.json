@@ -8,6 +8,13 @@
     "test": "node_modules/gulp/bin/gulp.js test",
     "prepublish": "node_modules/gulp/bin/gulp.js build"
   },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "gulpfile.js",
+    "lib",
+    "src"
+  ],
   "licenses": [
     {
       "type": "MIT",
@@ -41,6 +48,5 @@
     "gulp-rename": "~1.2.0",
     "random-js": "~1.0.4",
     "should": "~5.0.0"
-  },
-  "dependencies": {}
+  }
 }
