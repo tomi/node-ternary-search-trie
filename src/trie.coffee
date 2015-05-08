@@ -6,9 +6,9 @@ toCodePoints = (str) ->
   result = []
   counter = 0
   length = str.length
-  if str.codepointat?
+  if str.codePointAt?
     while counter < length
-      codepoint = str.codepointat counter
+      codepoint = str.codePointAt counter
       if codepoint?
         result.push codepoint
         counter += if codepoint > 0xffff then 2 else 1
